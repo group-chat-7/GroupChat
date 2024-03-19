@@ -1,7 +1,7 @@
-import path from "path";
-import express from "express";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import express from "express";
+import path from "path";
 
 import authRoutes from "./routes/authRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
@@ -39,31 +39,3 @@ server.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
-
-
-// module.exports = {
-//   apps : [{
-//       name : "63-server",
-//       script : "./app.js",
-//           env: {
-//               NODE_ENV: "production",
-//               PORT: 80,
-//               JWT_SECRET: "RahasiaBangetIniMahPliss",
-//               MONGO_DB_URI: "mongodb+srv://anjayaderio:zq6CsGf3tvkScqcX@cluster0.qkrcspi.mongodb.net/IP-DeepTalk?retryWrites=true&w=majority&appName=Cluster0",
-//               GOOGLE_CLIENT_ID: ""
-//           }
-//   }]
-// } 
-
-export default {
-  apps: [{
-      name : "63-server",
-      script : "./app.js",
-          env: {
-              NODE_ENV: "production",
-              PORT: 80,
-              JWT_SECRET: "RahasiaBangetIniMahPliss",
-              MONGO_DB_URI: "mongodb+srv://anjayaderio:zq6CsGf3tvkScqcX@cluster0.qkrcspi.mongodb.net/IP-DeepTalk?retryWrites=true&w=majority&appName=Cluster0",
-          }
-  }]
-}
