@@ -7,15 +7,12 @@ const midtransClient = require("midtrans-client");
 class Controller {
   static async register(req, res, next) {
     try {
-      const { username, email, password } = req.body;
-      if (!username) throw { name: "Username is required" };
-      if (!email) throw { name: "Email is required" };
-      if (!password) throw { name: "Password is required" };
+      const { username, password } = req.body;
+      let email = `${username}@gmail.com`;
 
-      const dataFind = await User.findOne({
+      await User.findOne({
         where: { email, provider: "manual" },
       });
-      if (dataFind) throw { name: "Email already exist" };
 
       const data = await User.create({
         username,
@@ -33,15 +30,10 @@ class Controller {
   }
   static async login(req, res, next) {
     try {
-      const { email, password } = req.body;
-      if (!email) throw { name: "Email is required" };
-      if (!password) throw { name: "Password is required" };
+      const { username } = req.body;
+      let email = `${username}@gmail.com`;
 
       const data = await User.findOne({ where: { email, provider: "manual" } });
-      if (!data) throw { name: "Invalid email/password" };
-
-      const checkPassword = comparePassword(password, data.password);
-      if (!checkPassword) throw { name: "Invalid email/password" };
 
       const payload = { id: data.id };
       const access_token = signToken(payload);

@@ -1,4 +1,4 @@
-import React from "react";
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
@@ -36,7 +36,15 @@ const useSignup = () => {
           gender,
         }),
       });
-
+      const input = {
+        username,
+        password,
+      };
+      await axios({
+        method: "POST",
+        url: "http://localhost:3000/register",
+        data: input,
+      });
       const data = await res.json();
       if (data.error) {
         throw new Error(data.error);
