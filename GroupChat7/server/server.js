@@ -39,33 +39,3 @@ server.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });
-
-// module.exports = {
-//   apps : [{
-//       name : "63-server",
-//       script : "./app.js",
-//           env: {
-//               NODE_ENV: "production",
-//               PORT: 80,
-//               JWT_SECRET: "RahasiaBangetIniMahPliss",
-//               MONGO_DB_URI: "mongodb+srv://anjayaderio:zq6CsGf3tvkScqcX@cluster0.qkrcspi.mongodb.net/IP-DeepTalk?retryWrites=true&w=majority&appName=Cluster0",
-//               GOOGLE_CLIENT_ID: ""
-//           }
-//   }]
-// }
-
-export default {
-  apps: [
-    {
-      name: "63-server",
-      script: "./app.js",
-      env: {
-        NODE_ENV: "production",
-        PORT: 80,
-        JWT_SECRET: "RahasiaBangetIniMahPliss",
-        MONGO_DB_URI:
-          "mongodb+srv://anjayaderio:zq6CsGf3tvkScqcX@cluster0.qkrcspi.mongodb.net/IP-DeepTalk?retryWrites=true&w=majority&appName=Cluster0",
-      },
-    },
-  ],
-};
