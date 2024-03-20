@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsSend } from "react-icons/bs";
 import useSendMessage from "../../hooks/useSendMessage";
+import GifSubmits from "../GifSubmits";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
@@ -12,7 +13,14 @@ const MessageInput = () => {
     await sendMessage(message);
     setMessage("");
   };
-  
+
+  const handleGifSubmit = (gifMessage) => {
+    // Concatenate the selected GIF message with the existing message
+    const fullMessage = `${message} ${gifMessage}`;
+    setMessage(fullMessage.trim()); // Trim to remove extra spaces
+    handleSubmit(e); // Submit the combined message
+  };
+
   return (
     <form className="px-4 my-3" onSubmit={handleSubmit}>
       <div className="w-full relative">
@@ -32,8 +40,17 @@ const MessageInput = () => {
           ) : (
             <BsSend />
           )}
-        </button>
+        </button>{" "}
       </div>
+      {/* Button to open the modal */}
+      <button
+        className="btn"
+        onClick={() => document.getElementById("my_modal_1").showModal()}
+      >
+        Select GIF
+      </button>
+      {/* Include the GifSubmits component */}
+      <GifSubmits onSubmit={handleGifSubmit} />
     </form>
   );
 };

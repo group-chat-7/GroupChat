@@ -1,8 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import test from "./1.webp";
-import test2 from "./2.gif";
 
 function RandomButton() {
   const [showGif, setShowGif] = useState(false);
@@ -36,22 +34,6 @@ function RandomButton() {
         Random Gif
       </span>
       {showGif && <Gif fetchTrigger={fetchTrigger} />}
-      <img
-        src={test}
-        alt="gif anime"
-        style={{
-          width: "5rem",
-          height: "5rem",
-        }}
-      />
-      <img
-        src={test2}
-        alt="gif anime"
-        style={{
-          width: "5rem",
-          height: "5rem",
-        }}
-      />
     </>
   );
 }
