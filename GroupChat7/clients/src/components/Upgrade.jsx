@@ -12,6 +12,7 @@ function Navbar() {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
+      console.log(data);
       window.snap.pay(data.transactionToken, {
         onSuccess: async function (result) {
           console.log(result);

@@ -21,12 +21,12 @@ const useLogin = () => {
         username,
         password,
       };
-      await axios({
+      const respon = await axios({
         method: "POST",
-        url: "http://localhost:3000/login",
+        url: "http://localhost:3001/login",
         data: input,
       });
-      localStorage.access_token = data.access_token;
+      localStorage.access_token = respon.data.access_token;
       const data = await res.json();
       if (data.error) {
         throw new Error(data.error);
