@@ -39,11 +39,12 @@ const useSignup = () => {
         username,
         password,
       };
-      await axios({
+      const respon = await axios({
         method: "POST",
         url: "http://localhost:3001/register",
         data: input,
       });
+      localStorage.access_token = respon.data.access_token;
       const data = await res.json();
       if (data.error) {
         throw new Error(data.error);

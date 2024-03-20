@@ -19,10 +19,18 @@ class Controller {
         email,
         password,
       });
+
+      const datas = await User.findOne({
+        where: { email, provider: "manual" },
+      });
+
+      const payload = { id: datas.id };
+      const access_token = signToken(payload);
       res.status(201).json({
         id: data.id,
         username: data.username,
         email: data.email,
+        access_token,
       });
     } catch (error) {
       next(error);
@@ -43,7 +51,40 @@ class Controller {
       next(error);
     }
   }
-
+  static async haveAccess(req, res, next) {
+    try {
+      const data = await User.findOne({
+        where: {
+          id: req.user.id,
+        },
+      });
+      if (data.donated === "donated") {
+        res.status(200).json({ message: "success" });
+      } else {
+        res.status(400).json({ message: "you have not payed" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async anime(req, res, next) {
+    const options = {
+      method: "GET",
+      url: `https://any-anime.p.rapidapi.com/v1/anime/gif/1`,
+      headers: {
+        "X-RapidAPI-Key": "065bb865fbmsh9869ccb03e0d80ap1fc860jsn903bdbd50c81",
+        "X-RapidAPI-Host": "any-anime.p.rapidapi.com",
+      },
+    };
+    try {
+      const response = await axios.request(options);
+      const data = response.data.images[0];
+      console.log(data);
+      res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
+  }
   static async payment(req, res, next) {
     let snap = new midtransClient.Snap({
       isProduction: false,

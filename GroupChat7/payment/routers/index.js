@@ -10,6 +10,8 @@ router.post("/login", Controller.login);
 
 router.use(authentication);
 
+router.get("/have-access", Controller.haveAccess);
+router.get("/anime", Controller.anime);
 router.get("/payment", Controller.payment);
 router.patch("/upgrade", Controller.upgrade);
 

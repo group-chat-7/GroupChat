@@ -47,7 +47,7 @@ function Upgrade() {
       ref={payButtonRef}
       id="pay-button"
     >
-      Donate
+      Upgrade
     </span>
   );
 }
