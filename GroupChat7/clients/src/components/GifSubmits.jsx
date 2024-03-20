@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import test from "./gifs/1.webp";
 import test2 from "./gifs/2.gif";
 
-function GifSubmits({ onSubmit }) {
+function GifSubmits({ onSubmit, show, onClose }) {
   const [selectedGif, setSelectedGif] = useState(null);
 
   const handleGifSelect = (gifName) => {
@@ -16,13 +16,24 @@ function GifSubmits({ onSubmit }) {
       onSubmit(messageWithGif);
       // Clear the selected GIF after submission
       setSelectedGif(null);
-      // Close the modal
-      document.getElementById("my_modal_1").close();
+      // Close the modal using handleCloseModal
+      handleCloseModal();
     }
   };
 
+  const handleCloseModal = () => {
+    const modal = document.getElementById("my_modal_1");
+    if (modal) {
+      modal.close(); // Close the modal if it exists
+    }
+    onClose(); // Call the onClose prop function
+  };
+
   return (
-    <dialog id="my_modal_1" className="modal">
+    <dialog
+      id="my_modal_1"
+      className={`modal ${show ? "modal-open" : "modal-closed"}`}
+    >
       <div className="modal-box">
         <h3 className="font-bold text-lg">Select a GIF</h3>
         <div className="gif-container">
@@ -43,10 +54,7 @@ function GifSubmits({ onSubmit }) {
             Submit GIF
           </button>
           {/* Button to close the modal */}
-          <button
-            className="btn"
-            onClick={() => document.getElementById("my_modal_1").close()}
-          >
+          <button className="btn" onClick={handleCloseModal}>
             Close
           </button>
         </div>
