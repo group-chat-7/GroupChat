@@ -1,3 +1,4 @@
+import RandomButton from "../../components/RandomButton";
 import Upgrade from "../../components/Upgrade";
 import MessageContainer from "../../components/messages/MessageContainer";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -9,6 +10,7 @@ const Home = () => {
           <Sidebar />
           <MessageContainer />
           <Upgrade />
+          <RandomButton />
         </div>
       </div>
     </>
