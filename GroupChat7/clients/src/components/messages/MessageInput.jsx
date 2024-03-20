@@ -1,10 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { BsSend } from "react-icons/bs";
+import Swal from "sweetalert2";
 import useSendMessage from "../../hooks/useSendMessage";
+import GifSubmits from "../GifSubmits";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
   const { loading, sendMessage } = useSendMessage();
+  const [showGifSubmit, setShowGifSubmit] = useState(false); // State for showing GifSubmits button
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,7 +16,38 @@ const MessageInput = () => {
     await sendMessage(message);
     setMessage("");
   };
-  
+
+  const handleSubmits = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get("http://localhost:3001/have-access", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+      if (response.data.message === "success") {
+        setShowGifSubmit(true);
+        // Show the modal here
+        document.getElementById("my_modal_1").showModal();
+      } else {
+        setShowGifSubmit(false);
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: error.response.data.message,
+        icon: "error",
+      });
+    }
+  };
+
+  const handleGifSubmit = (gifMessage) => {
+    // Concatenate the selected GIF message with the existing message
+    const fullMessage = `${message} ${gifMessage}`;
+    setMessage(fullMessage.trim()); // Trim to remove extra spaces
+    handleSubmit(); // Submit the combined message
+  };
+
   return (
     <form className="px-4 my-3" onSubmit={handleSubmit}>
       <div className="w-full relative">
@@ -32,8 +67,14 @@ const MessageInput = () => {
           ) : (
             <BsSend />
           )}
-        </button>
+        </button>{" "}
       </div>
+      {/* Button to open the modal */}
+      <button className="btn" onClick={handleSubmits}>
+        Select GIF
+      </button>
+      {/* Include the GifSubmits component */}
+      <GifSubmits onSubmit={handleGifSubmit} />
     </form>
   );
 };
