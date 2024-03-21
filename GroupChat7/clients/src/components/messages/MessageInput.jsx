@@ -20,11 +20,14 @@ const MessageInput = () => {
   const handleSubmits = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get("http://localhost:3001/have-access", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
+      const response = await axios.get(
+        "https://payment.ronaldokwan.online/have-access",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
       if (response.data.message === "success") {
         setShowGifSubmit(true);
         // Show the modal here

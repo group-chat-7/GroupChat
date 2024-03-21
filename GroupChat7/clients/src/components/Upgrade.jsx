@@ -7,17 +7,20 @@ function Upgrade() {
     var payButton = document.getElementById("pay-button");
     payButton.addEventListener("click", async function () {
       // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-      const { data } = await axios.get("http://localhost:3001/payment", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      });
+      const { data } = await axios.get(
+        "https://payment.ronaldokwan.online/payment",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
       console.log(data);
       window.snap.pay(data.transactionToken, {
         onSuccess: async function (result) {
           console.log(result);
           await axios.patch(
-            "http://localhost:3001/upgrade",
+            "https://payment.ronaldokwan.online/upgrade",
             {
               orderId: data.orderId,
             },

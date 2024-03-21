@@ -9,7 +9,7 @@ function RandomButton() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await axios.get("http://localhost:3001/have-access", {
+      await axios.get("https://payment.ronaldokwan.online/have-access", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
@@ -45,7 +45,7 @@ function Gif({ fetchTrigger }) {
     try {
       const { data } = await axios({
         method: "get",
-        url: "http://localhost:3001/anime",
+        url: "https://payment.ronaldokwan.online/anime",
         headers: {
           Authorization: "Bearer " + localStorage.access_token,
         },

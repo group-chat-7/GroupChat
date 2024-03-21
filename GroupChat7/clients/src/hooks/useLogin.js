@@ -12,18 +12,21 @@ const useLogin = () => {
     if (!success) return;
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+      const res = await fetch(
+        "https://server-chat.ronaldokwan.online/api/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        }
+      );
       const input = {
         username,
         password,
       };
       const respon = await axios({
         method: "POST",
-        url: "http://localhost:3001/login",
+        url: "https://payment.ronaldokwan.online/login",
         data: input,
       });
       localStorage.access_token = respon.data.access_token;
