@@ -4,6 +4,8 @@ import MessageInput from "./MessageInput";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../../zustand/useConversation";
 import { useAuthContext } from "../../context/AuthContext";
+import { IoVideocamOutline } from "react-icons/io5";
+import VideoCallButton from "../videocall/VideoCallButton";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -24,6 +26,8 @@ const MessageContainer = () => {
             <span className="text-gray-900 font-bold">
               {selectedConversation.fullName}
             </span>
+          
+          <VideoCallButton />
           </div>
 
           <Messages />
