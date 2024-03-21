@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import useConversation from "../zustand/useConversation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import useConversation from "../zustand/useConversation";
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +10,9 @@ const useGetMessages = () => {
     const getMessages = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/messages/${selectedConversation._id}`);
+        const res = await fetch(
+          `https://server-chat.ronaldokwan.online/api/messages/${selectedConversation._id}`
+        );
         const data = await res.json();
         if (data.error) throw new Error(data.error);
         setMessages(data);

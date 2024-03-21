@@ -24,24 +24,27 @@ const useSignup = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName,
-          username,
-          password,
-          confirmPassword,
-          gender,
-        }),
-      });
+      const res = await fetch(
+        "https://server-chat.ronaldokwan.online/api/auth/signup",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName,
+            username,
+            password,
+            confirmPassword,
+            gender,
+          }),
+        }
+      );
       const input = {
         username,
         password,
       };
       const respon = await axios({
         method: "POST",
-        url: "http://localhost:3001/register",
+        url: "https://payment.ronaldokwan.online/register",
         data: input,
       });
       localStorage.access_token = respon.data.access_token;
